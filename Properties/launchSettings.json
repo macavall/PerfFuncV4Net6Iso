@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "PerfFuncV4Net6Iso": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7233",
+      "launchBrowser": false
+    }
+  }
+}
