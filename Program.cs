@@ -6,7 +6,7 @@ namespace PerfFuncV4Net6Iso
     {
         public static void Main()
         {
-            var host = new HostBuilder()
+            var host = new HostBuilder()  // fixing formatting
                 .ConfigureFunctionsWorkerDefaults()
                 .Build();
 
