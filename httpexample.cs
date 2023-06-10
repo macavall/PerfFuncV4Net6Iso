@@ -24,28 +24,16 @@ namespace PerfFuncV4Net6Iso
 
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-            var tasks = new List<Thread>();
+            Task[] tasks = new Task[100];
 
             for (int x = 0; x < 100; x++)
             {
-                // Create detached thread
-                tasks.Add(new Thread (async () =>
-                {
+                tasks[x] = Task.Factory.StartNew(async () => {
                     await Task.Delay(5000);
-                }));
+                });
             }
-
-            // Start all threads
-            foreach (var task in tasks)
-            {
-                task.Start();
-            }
-
-            // Wait for all threads to complete
-            foreach (var task in tasks)
-            {
-                task.Join();
-            }
+            
+            Task.WaitAll(tasks);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
