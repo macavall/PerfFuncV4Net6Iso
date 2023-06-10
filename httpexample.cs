@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
@@ -24,16 +25,25 @@ namespace PerfFuncV4Net6Iso
 
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
-            Task[] tasks = new Task[100];
+            const int numberOfThreads = 300;
 
-            for (int x = 0; x < 300; x++)
+            Task[] tasks = new Task[numberOfThreads];
+
+            for (int i = 0; i < numberOfThreads; i++)
             {
-                tasks[x] = Task.Factory.StartNew(async () => {
-                    await Task.Delay(60000);
+                tasks[i] = Task.Run(async () =>
+                {
+                    // Perform some work or operations within the task
+                    Console.WriteLine($"Thread {Task.CurrentId} is running.");
+
+                    // Simulate a delay of 60 seconds using Task.Delay
+                    //await Task.Delay(TimeSpan.FromSeconds(60));
+
+                    Thread.SpinWait(2147483647);
+
+                    Console.WriteLine($"Thread {Task.CurrentId} has completed.");
                 });
             }
-            
-            Task.WaitAll(tasks);
 
             var response = req.CreateResponse(HttpStatusCode.OK);
             response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
