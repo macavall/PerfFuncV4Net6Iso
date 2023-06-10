@@ -26,10 +26,10 @@ namespace PerfFuncV4Net6Iso
 
             Task[] tasks = new Task[100];
 
-            for (int x = 0; x < 100; x++)
+            for (int x = 0; x < 300; x++)
             {
                 tasks[x] = Task.Factory.StartNew(async () => {
-                    await Task.Delay(5000);
+                    await Task.Delay(60000);
                 });
             }
             
