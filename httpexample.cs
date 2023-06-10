@@ -39,6 +39,8 @@ namespace PerfFuncV4Net6Iso
                     // Simulate a delay of 60 seconds using Task.Delay
                     //await Task.Delay(TimeSpan.FromSeconds(60));
 
+                    await Task.Delay(1);
+
                     Thread.SpinWait(2147483647);
 
                     Console.WriteLine($"Thread {Task.CurrentId} has completed.");
